@@ -68,7 +68,7 @@ func main() {
 Retorno
 ``` 
 Improvimento
-Criou .csv
+Files created
  ```
 
 ## Functions
@@ -87,6 +87,21 @@ Suport Functions:
 - Partial(text string, char int)         ->  retorna true para uma ementa *parcial provimento*
 - Groundless(text string, char int)      ->  retorna true para uma ementa *improvimento*
 - HasGround(text string, char int)       ->  retorna true para uma ementa *provimento* 
+
+## CSV return files
+Serão retornados 9 arquivos csv apartados correspondetes a uma classificação mencionada acima, sendo esses:
+
+- affected.csv
+- diligence.csv
+- exOfficioReview.csv
+- partial.csv 
+- groundless.csv 
+- hasGrounds.csv 
+- noSummary.csv
+- notMapped.csv 
+- totalInfered.csv <> **Compilado de todos os documentos acima**
+
+Caso não exista nenhum elemento de uma dada categoria o arquivo não será retornado.
 
 ## Disclaimer
 Esse é um work in progress do classificador, ainda não sabemos o % de efetividade desse classificador para as ementas existentes nos tribunais de justiça. Use por sua conta em risco.
