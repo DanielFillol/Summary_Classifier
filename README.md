@@ -2,7 +2,7 @@
 Projeto pensado para classificar as ementas de decisões extraídas das páginas dos tribunais de justiça de todo país.
 
 ## Instal
-``` go get github.com/Darklabel91/Classificador_Decisao ```
+``` go get github.com/Darklabel91/Summary_Classifier ```
 
 ## Data Struct
 Os dados de retorno podem ser ```bool```, ```string``` ou ```Infered_decision```, essa última é composta por:
@@ -40,7 +40,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Darklabel91/Classificador_Decisao"
+	"github.com/Darklabel91/Summary_Classifier"
 )
 
 func main() {
@@ -49,7 +49,7 @@ func main() {
 	id := "0"
 	court := "STJ"
 
-	test := Classificador_Decisao.Decision_Classifier(summary, id, court)
+	test := Summary_Classifier.SummaryClassifier(summary, id, court)
 	fmt.Println(test.Class)
 }
 
