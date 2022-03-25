@@ -56,7 +56,7 @@ func main() {
 
 	//READING A CSV WITH SUMMARY'S
 
-	rawPath := "/Users/danielfillol/Desktop/Decisioes.csv"
+	rawPath := "/Users/Desktop/Decisioes.csv"
 	separator := ';'
 	resultFolder := "Result"
 
@@ -104,7 +104,7 @@ Serão retornados 9 arquivos csv apartados correspondetes a uma classificação 
 Caso não exista nenhum elemento de uma dada categoria o arquivo não será retornado.
 
 ## Disclaimer
-Esse é um work in progress do classificador, ainda não sabemos o % de efetividade desse classificador para as ementas existentes nos tribunais de justiça. Use por sua conta em risco.
+Esse classificador foi testado, até o momento, apenas com ementas dos julgados do segundo grau do TJSP (Tribunal de Justiça de São Paulo) com uma assertividade de 96%, de qualquer modo, use com cautela.
 
 ## Considerações
 A) Esse projeto foi criado de forma voluntária, você pode contribuir de qualquer modo. Se encontrar uma falha, não hesite em criar um “issue” ou  procure corrigir você mesma(o) o erro e dar um “pull request”.
