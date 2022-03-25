@@ -2,7 +2,7 @@
 Projeto pensado para classificar as ementas de decisões extraídas das páginas dos tribunais de justiça de todo país.
 
 ## Instal
-``` go get github.com/Darklabel91/Summary_Classifier ```
+``` go get -u github.com/Darklabel91/Summary_Classifier ```
 
 ## Data Struct
 Os dados de retorno podem ser ```bool```, ```string``` ou ```Infered_decision```, essa última é composta por:
@@ -44,6 +44,8 @@ import (
 )
 
 func main() {
+	
+	//SINGLE USE OF THE CLASSIFIER
 
 	summary := "PROCESSUAL CIVIL. AGRAVO INERNO NO RECURSO ESPECIAL. AÇÃO DE COMPENSAÇÃO POR DANO MORAL E REPARAÇÃO POR DANO MATERIAL. DANO MORAL. OCORRÊNCIA. LONGO ATRASO NA ENTREGA DE IMÓVEL. 1. Ação de compensação por dano moral e reparação por dano material. 2. Cabimento de compensação por danos morais em virtude de longo atraso na entrega de imóvel. Precedentes. 3. Agravo interno no recurso especial não provido."
 	id := "0"
@@ -51,19 +53,29 @@ func main() {
 
 	test := Summary_Classifier.SummaryClassifier(summary, id, court)
 	fmt.Println(test.Class)
-}
 
+	//READING A CSV WITH SUMMARY'S
+
+	rawPath := "/Users/danielfillol/Desktop/Decisioes.csv"
+	separator := ';'
+	resultFolder := "Result"
+
+	Summary_Classifier.SummaryClassifierCSV(rawPath, separator, resultFolder)
+
+}
 
  ```
 Retorno
 ``` 
 Improvimento
+Criou .csv
  ```
 
 ## Functions
 
 Main Function:
 - Decision_Classifier(summary string, identifier string, court string)  ->  retorna uma *Infered_decision* necessitantando da ementa, identificador, tribunal. Essa função faz um uso em laço da *ClassDecision*, iniciando com 16 caracteres, até a totalidade de caracteres da ementa para classificar o texto.
+- SummaryClassifierCSV(rawPath string, separator rune, resultFolder string)-> retorna um CSV para uma pasta do projeto com o nome apontado em *resultFolder*. Para utilizar a função basta apontar o caminho do CSV (que deve ter a sequência de colunas {id, identifier, decision, court}) e o separador (';' ',' etc..)
 
 Decision Function:
 - ClassDecision(summary string, identifier string, court string, char int)  ->  retorna uma *Infered_decision* necessitantando da ementa, identificador, tribunal e número de caracteres a serem analisados na ementa (de trás para frente).
