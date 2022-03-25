@@ -2,7 +2,6 @@ package CSV
 
 import (
 	"encoding/csv"
-	"fmt"
 	"github.com/Darklabel91/Summary_Classifier/Error"
 	"github.com/Darklabel91/Summary_Classifier/Struct"
 	"os"
@@ -13,11 +12,10 @@ func create(p string) (*os.File, error) {
 	if err := os.MkdirAll(filepath.Dir(p), 0770); err != nil {
 		return nil, err
 	}
-	fmt.Println("Criou .csv")
 	return os.Create(p)
 }
 
-func ExportCSV(nameFile string, nameFolder string, result []Struct.Infered_decision) {
+func exportCSV(nameFile string, nameFolder string, result []Struct.Infered_decision) {
 	empData := [][]string{}
 
 	for i := 0; i < len(result); i++ {
