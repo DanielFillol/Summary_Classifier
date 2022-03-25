@@ -15,7 +15,7 @@ func create(p string) (*os.File, error) {
 	return os.Create(p)
 }
 
-func exportCSV(nameFile string, nameFolder string, result []Struct.Infered_decision) {
+func ExportCSV(nameFile string, nameFolder string, result []Struct.Infered_decision) {
 	empData := [][]string{}
 
 	for i := 0; i < len(result); i++ {
