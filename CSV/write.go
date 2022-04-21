@@ -2,7 +2,6 @@ package CSV
 
 import (
 	"encoding/csv"
-	"github.com/Darklabel91/Summary_Classifier/Error"
 	"github.com/Darklabel91/Summary_Classifier/Struct"
 	"os"
 	"path/filepath"
@@ -15,21 +14,27 @@ func create(p string) (*os.File, error) {
 	return os.Create(p)
 }
 
-func ExportCSV(nameFile string, nameFolder string, result []Struct.Infered_decision) {
-	empData := [][]string{}
+func ExportCSV(nameFile string, nameFolder string, result []Struct.Infered_decision) error {
+	var inferredDecision [][]string
 
 	for i := 0; i < len(result); i++ {
 		final := []string{result[i].Summary, result[i].Text, result[i].Class, result[i].Identifier, result[i].Court}
-		empData = append(empData, final)
+		inferredDecision = append(inferredDecision, final)
 	}
 
-	csvFile, _ := create(nameFolder + "/" + nameFile + ".csv")
-	csvwriter := csv.NewWriter(csvFile)
-
-	for _, empRow := range empData {
-		_ = csvwriter.Write(empRow)
+	csvFile, err := create(nameFolder + "/" + nameFile + ".csv")
+	if err != nil {
+		return err
 	}
-	csvwriter.Flush()
-	err := csvFile.Close()
-	Error.CheckError(err)
+
+	defer csvFile.Close()
+
+	csvWriter := csv.NewWriter(csvFile)
+
+	for _, infDec := range inferredDecision {
+		_ = csvWriter.Write(infDec)
+	}
+	csvWriter.Flush()
+
+	return nil
 }

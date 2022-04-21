@@ -24,13 +24,21 @@ func SummaryClassifier(summary string, identifier string, court string) Struct.I
 	return ret
 
 }
-func SummaryClassifierCSV(rawDecisionPath string, separator rune, nameResultFolder string) {
-	raw := CSV.ReadCsvFile(rawDecisionPath, separator)
-	createCSVs(raw, nameResultFolder)
+
+func SummaryClassifierCSV(rawDecisionPath string, separator rune, nameResultFolder string) error {
+	raw, err := CSV.ReadCsvFile(rawDecisionPath, separator)
+	if err != nil {
+		return err
+	}
+	err = createCSVs(raw, nameResultFolder)
+	if err != nil {
+		return err
+	}
 	fmt.Println("Files created")
+	return nil
 }
 
-func createCSVs(raw []Struct.Raw_decision, nameResultFolder string) {
+func createCSVs(raw []Struct.Raw_decision, nameResultFolder string) error {
 	var totalInfered []Struct.Infered_decision
 	var exOfficioReview []Struct.Infered_decision
 	var diligence []Struct.Infered_decision
@@ -64,30 +72,59 @@ func createCSVs(raw []Struct.Raw_decision, nameResultFolder string) {
 
 	}
 
-	CSV.ExportCSV("totalInfered", nameResultFolder, totalInfered)
+	err := CSV.ExportCSV("totalInfered", nameResultFolder, totalInfered)
+	if err != nil {
+		return err
+	}
 
 	if len(exOfficioReview) != 0 {
-		CSV.ExportCSV("exOfficioReview", nameResultFolder, exOfficioReview)
+		err = CSV.ExportCSV("exOfficioReview", nameResultFolder, exOfficioReview)
+		if err != nil {
+			return err
+		}
 	}
 	if len(diligence) != 0 {
-		CSV.ExportCSV("diligence", nameResultFolder, diligence)
+		err = CSV.ExportCSV("diligence", nameResultFolder, diligence)
+		if err != nil {
+			return err
+		}
 	}
 	if len(affected) != 0 {
-		CSV.ExportCSV("affected", nameResultFolder, affected)
+		err = CSV.ExportCSV("affected", nameResultFolder, affected)
+		if err != nil {
+			return err
+		}
 	}
 	if len(partial) != 0 {
-		CSV.ExportCSV("partial", nameResultFolder, partial)
+		err = CSV.ExportCSV("partial", nameResultFolder, partial)
+		if err != nil {
+			return err
+		}
 	}
 	if len(groundless) != 0 {
-		CSV.ExportCSV("groundless", nameResultFolder, groundless)
+		err = CSV.ExportCSV("groundless", nameResultFolder, groundless)
+		if err != nil {
+			return err
+		}
 	}
 	if len(hasGround) != 0 {
-		CSV.ExportCSV("hasGround", nameResultFolder, hasGround)
+		err = CSV.ExportCSV("hasGround", nameResultFolder, hasGround)
+		if err != nil {
+			return err
+		}
 	}
 	if len(noInfo) != 0 {
-		CSV.ExportCSV("noInfo", nameResultFolder, noInfo)
+		err = CSV.ExportCSV("noInfo", nameResultFolder, noInfo)
+		if err != nil {
+			return err
+		}
 	}
 	if len(notMap) != 0 {
-		CSV.ExportCSV("notMap", nameResultFolder, notMap)
+		err = CSV.ExportCSV("notMap", nameResultFolder, notMap)
+		if err != nil {
+			return err
+		}
 	}
+
+	return nil
 }

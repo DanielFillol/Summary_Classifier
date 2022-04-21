@@ -3,50 +3,52 @@ package Functions
 import "strings"
 
 func Number(text string) bool {
-	var ret = false
-	var letters = [28]string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "x", "w", "y", "z", "/", ")"}
-	var numbers = [10]string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}
-	for i := 0; i < len(numbers); i++ {
-		if strings.Contains(text, numbers[i]) {
-			ret = true
+	letters := [28]string{"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "x", "w", "y", "z", "/", ")"}
+	numbers := [10]string{"1", "2", "3", "4", "5", "6", "7", "8", "9", "0"}
+
+	var flag bool
+	for _, num := range numbers {
+		if strings.Contains(text, num) {
+			flag = true
 		}
-	}
-	if ret {
-		for a := 0; a < len(letters); a++ {
-			if strings.Contains(text, "eros") {
-				ret = true
-			} else {
-				if strings.Contains(text, letters[a]) {
-					ret = false
+
+		if flag == true {
+			for _, let := range letters {
+				if strings.Contains(text, "eros") {
+					return true
+				} else {
+					if strings.Contains(text, let) {
+						return false
+					}
 				}
 			}
 		}
+
 	}
-	return ret
+
+	return false
+
 }
 
 func NumberAnalysis(summary string, char int) string {
-	var ret string
-	length := len(summary)
-	text := SelectLastChars(summary, length*2)
-	if length < char {
-		ret = "Sem Informação"
+	text := SelectLastChars(summary, len(summary)*2)
+	if len(summary) < char {
+		return "Sem Informação"
 	} else {
 		if ExOfficioReview(text, char-26) {
-			ret = "Reexame Necessário"
+			return "Reexame Necessário"
 		} else if Diligence(text, char-26) {
-			ret = "Convertido em Diligência"
+			return "Convertido em Diligência"
 		} else if Affected(text, char-26) {
-			ret = "Prejudicado"
+			return "Prejudicado"
 		} else if Partial(text, char-26) {
-			ret = "Parcial Provimento"
+			return "Parcial Provimento"
 		} else if Groundless(text, char-26) {
-			ret = "Improvimento"
+			return "Improvimento"
 		} else if HasGround(text, char-26) {
-			ret = "Provimento"
+			return "Provimento"
 		} else {
-			ret = "Não Mapeado"
+			return "Não Mapeado"
 		}
 	}
-	return ret
 }
