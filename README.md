@@ -40,18 +40,18 @@ package main
 
 import (
 	"fmt"
-	"github.com/Darklabel91/Summary_Classifier"
+	Classifier "github.com/Darklabel91/Summary_Classifier"
 )
 
 func main() {
-	
+
 	//SINGLE USE OF THE CLASSIFIER
 
 	summary := "PROCESSUAL CIVIL. AGRAVO INERNO NO RECURSO ESPECIAL. AÇÃO DE COMPENSAÇÃO POR DANO MORAL E REPARAÇÃO POR DANO MATERIAL. DANO MORAL. OCORRÊNCIA. LONGO ATRASO NA ENTREGA DE IMÓVEL. 1. Ação de compensação por dano moral e reparação por dano material. 2. Cabimento de compensação por danos morais em virtude de longo atraso na entrega de imóvel. Precedentes. 3. Agravo interno no recurso especial não provido."
 	id := "0"
 	court := "STJ"
 
-	test := Summary_Classifier.SummaryClassifier(summary, id, court)
+	test := Classifier.SummaryClassifier(summary, id, court)
 	fmt.Println(test.Class)
 
 	//READING A CSV WITH SUMMARY'S
@@ -60,7 +60,10 @@ func main() {
 	separator := ';'
 	resultFolder := "Result"
 
-	Summary_Classifier.SummaryClassifierCSV(rawPath, separator, resultFolder)
+	err := Classifier.SummaryClassifierCSV(rawPath, separator, resultFolder)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 }
 
