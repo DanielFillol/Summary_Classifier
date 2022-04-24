@@ -1,4 +1,4 @@
-package Summary
+package Test
 
 import (
 	"github.com/Darklabel91/Summary_Classifier/CSV"
