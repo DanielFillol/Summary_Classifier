@@ -2,39 +2,58 @@ package CSV
 
 import (
 	"encoding/csv"
-	"github.com/Darklabel91/Summary_Classifier/Struct"
+	"github.com/Darklabel91/Summary_Classifier/Summary"
 	"os"
 	"path/filepath"
 )
 
-func create(p string) (*os.File, error) {
+//ExportCSV exports a csv to a given folder, with a given name from a collection of AnalysisCNJ
+func writeCSV(fileName string, folderName string, decisions []Summary.InferredDecision) error {
+	var rows [][]string
+
+	rows = append(rows, generateHeaders())
+
+	for _, decision := range decisions {
+		rows = append(rows, generateRow(decision))
+	}
+
+	cf, err := createFile(folderName + "/" + fileName + ".csv")
+	if err != nil {
+		return err
+	}
+
+	defer cf.Close()
+
+	w := csv.NewWriter(cf)
+
+	err = w.WriteAll(rows)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// create csv file from operating system
+func createFile(p string) (*os.File, error) {
 	if err := os.MkdirAll(filepath.Dir(p), 0770); err != nil {
 		return nil, err
 	}
 	return os.Create(p)
 }
 
-func ExportCSV(nameFile string, nameFolder string, result []Struct.Infered_decision) error {
-	var inferredDecision [][]string
-
-	for i := 0; i < len(result); i++ {
-		final := []string{result[i].Summary, result[i].Text, result[i].Class, result[i].Identifier, result[i].Court}
-		inferredDecision = append(inferredDecision, final)
+// generate the necessary headers for csv file
+func generateHeaders() []string {
+	return []string{
+		"Ementa",
+		"Classificação",
 	}
+}
 
-	csvFile, err := create(nameFolder + "/" + nameFile + ".csv")
-	if err != nil {
-		return err
+// returns a []string that compose the row in the csv file
+func generateRow(result Summary.InferredDecision) []string {
+	return []string{
+		result.Summary,
+		result.Class,
 	}
-
-	defer csvFile.Close()
-
-	csvWriter := csv.NewWriter(csvFile)
-
-	for _, infDec := range inferredDecision {
-		_ = csvWriter.Write(infDec)
-	}
-	csvWriter.Flush()
-
-	return nil
 }

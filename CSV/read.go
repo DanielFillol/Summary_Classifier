@@ -2,14 +2,15 @@ package CSV
 
 import (
 	"encoding/csv"
-	"github.com/Darklabel91/Summary_Classifier/Struct"
 	"os"
 )
 
-func ReadCsvFile(filePath string, separator rune) ([]Struct.Raw_decision, error) {
+//reads a csv file from a given path
+// the csv must contain only one column with the legal summary
+func readCsvFile(filePath string, separator rune) ([]string, error) {
 	csvFile, err := os.Open(filePath)
 	if err != nil {
-		return []Struct.Raw_decision{}, err
+		return nil, err
 	}
 
 	defer csvFile.Close()
@@ -19,19 +20,13 @@ func ReadCsvFile(filePath string, separator rune) ([]Struct.Raw_decision, error)
 
 	csvData, err := csvR.ReadAll()
 	if err != nil {
-		return []Struct.Raw_decision{}, err
+		return nil, err
 	}
 
-	var data []Struct.Raw_decision
-
+	var data []string
 	for _, line := range csvData {
-		emp := Struct.Raw_decision{
-			Summary:    line[0],
-			Identifier: line[1],
-			Court:      line[2],
-		}
-
-		data = append(data, emp)
+		newLine := line[0]
+		data = append(data, newLine)
 	}
 
 	return data, nil

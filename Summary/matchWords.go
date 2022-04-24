@@ -1,7 +1,8 @@
-package Functions
+package Summary
 
 import "strings"
 
+//matchWords is a simple method that compares a given string on one of possible two arrays
 func matchWords(text string, char int, less17 []string, more17 []string) bool {
 	var listMachtWords []string
 
