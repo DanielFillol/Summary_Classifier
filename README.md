@@ -8,20 +8,14 @@ Projeto pensado para classificar as ementas de decisões extraídas das páginas
 Os dados de retorno podem ser ```bool```, ```string``` ou ```Infered_decision```, essa última é composta por:
 
 ``` 
-type Infered_decision struct {
-	Summary    string `json:"summary,omitempty"`
-	Text       string `json:"text,omitempty"`
-	Class      string `json:"classificcao,omitempty"`
-	Identifier string `json:"Identifier,omitempty"`
-	Court      string `json:"Court,omitempty"`
+type InferredDecision struct {
+	Summary string `json:"summary,omitempty"`
+	Class   string `json:"classificcao,omitempty"`
 }
 ```
 
 - Summary: Ementa ou trecho de decisão para classificar
-- Text: Trecho de texto selecionado pelo classificador
 - Class: A classificação feita (ver a seção "Categorias" abaixo)
-- Identifier: Um identificador. É recomendado que seja utilizado o número do CNJ que a ementa está conectada para facilitar o cruzamento de dados
-- Court: O tribunal do qual a ementa foi extraída
 
 ## Categorias
 - Prejudicado
@@ -30,7 +24,6 @@ type Infered_decision struct {
 - Parcial Provimento
 - Improvimento
 - Provimento
-- Sem Ementa
 - Casos não mapeados
 
 ## Example
@@ -76,36 +69,9 @@ Files created
  ```
 
 ## Functions
-
-Main Function:
-- Decision_Classifier(summary string, identifier string, court string)  ->  retorna uma *Infered_decision* necessitantando da ementa, identificador, tribunal. Essa função faz um uso em laço da *ClassDecision*, iniciando com 16 caracteres, até a totalidade de caracteres da ementa para classificar o texto.
-- SummaryClassifierCSV(rawPath string, separator rune, resultFolder string)-> retorna um CSV para uma pasta do projeto com o nome apontado em *resultFolder*. Para utilizar a função basta apontar o caminho do CSV (que deve ter a sequência de colunas {id, identifier, decision, court}) e o separador (';' ',' etc..)
-
-Decision Function:
-- ClassDecision(summary string, identifier string, court string, char int)  ->  retorna uma *Infered_decision* necessitantando da ementa, identificador, tribunal e número de caracteres a serem analisados na ementa (de trás para frente).
-
-Suport Functions:
-- Affected(text string, char int)        ->  retorna true para uma ementa *prejudicada*
-- Diligence(text string, char int)       ->  retorna true para uma ementa *convertida em diligência*
-- ExOfficioReview(text string, char int) ->  retorna true para uma ementa *reexame necessário*
-- Partial(text string, char int)         ->  retorna true para uma ementa *parcial provimento*
-- Groundless(text string, char int)      ->  retorna true para uma ementa *improvimento*
-- HasGround(text string, char int)       ->  retorna true para uma ementa *provimento* 
-
-## CSV return files
-Serão retornados 9 arquivos csv apartados correspondetes a uma classificação mencionada acima, sendo esses:
-
-- affected.csv
-- diligence.csv
-- exOfficioReview.csv
-- partial.csv 
-- groundless.csv 
-- hasGrounds.csv 
-- noSummary.csv
-- notMapped.csv 
-- totalInfered.csv <> **Compilado de todos os documentos acima**
-
-Caso não exista nenhum elemento de uma dada categoria o arquivo não será retornado.
+- Classify(summary string) -> retorna *[Infered_decision](https://pkg.go.dev/github.com/Darklabel91/Summary_Classifier/Summary#InferredDecision)* 
+- ReturnSummaryClass(summary string, char int) -> retorna uma das sete categorias de classificação possíveis.
+- SummaryClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) -> retorna um CSV para uma pasta do projeto com o nome apontado em *resultFolder*. Para utilizar a função basta apontar o caminho do CSV (deve possuir uma única coluna com as ementas)
 
 ## Disclaimer
 Esse classificador foi testado, até o momento, apenas com ementas dos julgados do segundo grau do TJSP (Tribunal de Justiça de São Paulo) com uma assertividade de 96%, de qualquer modo, use com cautela.
