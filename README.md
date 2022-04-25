@@ -46,7 +46,7 @@ func main() {
 	fmt.Println(classification.Summary, classification.Class, err)
 
 	//READING A CSV WITH SUMMARY'S
-	rawPath := "/Users/danielfillol/Documents/GitHub/Summary_Classifier/CSV/csvTest.csv"
+	rawPath := "Summary_Classifier/CSV/csvTest.csv"
 	separator := ';'
 	resultFolder := "Result"
 
