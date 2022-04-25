@@ -30,7 +30,7 @@ func returnCSVClassSummary(raw []string, nameResultFolder string) error {
 		dataReturn, err := Summary.Classify(summary)
 		if err != nil {
 			classifiedSummary = append(classifiedSummary, Summary.InferredDecision{
-				Summary: err.Error(),
+				Summary: summary,
 				Class:   err.Error(),
 			})
 		}
