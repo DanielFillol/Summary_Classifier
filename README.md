@@ -33,7 +33,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/Darklabel91/Summary_Classifier/CSV"
+	"github.com/Darklabel91/Summary_Classifier/SummaryCSV"
 	"github.com/Darklabel91/Summary_Classifier/Summary"
 )
 
@@ -50,7 +50,7 @@ func main() {
 	separator := ';'
 	resultFolder := "Result"
 
-	err = CSV.SummaryClassifierCSV(rawPath, separator, resultFolder)
+	err = SummaryCSV.SummaryClassifierCSV(rawPath, separator, resultFolder)
 	if err != nil {
 		fmt.Println(err)
 	}
