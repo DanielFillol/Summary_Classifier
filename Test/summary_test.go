@@ -1,8 +1,8 @@
 package Test
 
 import (
-	"github.com/Darklabel91/Summary_Classifier/CSV"
 	"github.com/Darklabel91/Summary_Classifier/Summary"
+	"github.com/Darklabel91/Summary_Classifier/SummaryCSV"
 	"reflect"
 	"testing"
 )
@@ -75,7 +75,7 @@ func TestSummaryClassifierCSV(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if err := CSV.SummaryClassifierCSV(tt.args.rawFilePath, tt.args.separator, tt.args.nameResultFolder); (err != nil) != tt.wantErr {
+			if err := SummaryCSV.SummaryClassifierCSV(tt.args.rawFilePath, tt.args.separator, tt.args.nameResultFolder); (err != nil) != tt.wantErr {
 				t.Errorf("SummaryClassifierCSV() error = %v, wantErr %v", err, tt.wantErr)
 			}
 		})
