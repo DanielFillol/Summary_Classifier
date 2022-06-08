@@ -75,8 +75,3 @@ Files created
 
 ## Disclaimer
 Esse classificador foi testado, até o momento, apenas com ementas dos julgados do segundo grau do TJSP (Tribunal de Justiça de São Paulo) com uma assertividade de 96%, de qualquer modo, use com cautela.
-
-## Considerações
-A) Esse projeto foi criado de forma voluntária, você pode contribuir de qualquer modo. Se encontrar uma falha, não hesite em criar um “issue” ou  procure corrigir você mesma(o) o erro e dar um “pull request”.
-
-B) use os dados baixados para agregar valor, como por exemplo, para realizar análises ou publicar artigos, fazer inferências, elaborar recomendações aos poderes públicos etc. Baixar esses dados para reproduzi-los em sua página web é tirar proveito do trabalho alheio, mesmo sendo esses dados públicos.
