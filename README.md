@@ -1,12 +1,11 @@
 # Summary Classifier
-Projeto pensado para classificar as ementas de decisões extraídas das páginas dos tribunais de justiça de todo país.
+Go Package build with the objective of classifying the legal court decisions writen in brazilian portuguese.
 
 ## Instal
 ``` go get -u github.com/Darklabel91/Summary_Classifier ```
 
 ## Data Struct
-Os dados de retorno podem ser ```bool```, ```string``` ou ```Infered_decision```, essa última é composta por:
-
+Return data can be ```bool```, ```string``` ou ```Infered_decision```, the last is constructed as: 
 ``` 
 type InferredDecision struct {
 	Summary string `json:"summary,omitempty"`
@@ -14,17 +13,17 @@ type InferredDecision struct {
 }
 ```
 
-- Summary: Ementa ou trecho de decisão para classificar
-- Class: A classificação feita (ver a seção "Categorias" abaixo)
+- Summary: Summary of the legal decision you want to classify
+- Class: The classification of the Summary provided. Can be one of the following:
 
 ## Categorias
-- Prejudicado
-- Convertido em diligência
-- Reexame necessário
-- Parcial Provimento
-- Improvimento
-- Provimento
-- Casos não mapeados
+- Prejudicado (Affected)
+- Convertido em diligência (Diligence)
+- Reexame necessário (ExOfficio)
+- Parcial Provimento (Partial)
+- Improvimento (Groundless)
+- Provimento (Have Grounds)
+- Casos não mapeados (Not mapped)
 
 ## Example
 
@@ -57,7 +56,7 @@ func main() {
 
 }
  ```
-Retorno
+Return
 ``` 
 PROCESSUAL CIVIL. AGRAVO INERNO NO RECURSO ESPECIAL. AÇÃO DE COMPENSAÇÃO POR DANO MORAL E REPARAÇÃO POR DANO MATERIAL. DANO MORAL. OCORRÊNCIA. LONGO ATRASO NA ENTREGA DE IMÓVEL. 1. Ação de compensação por dano moral e reparação por dano material. 2. Cabimento de compensação por danos morais em virtude de longo atraso na entrega de imóvel. Precedentes. 3. Agravo interno no recurso especial não provido. 
 
@@ -69,9 +68,9 @@ Files created
  ```
 
 ## Functions
-- Classify(summary string) -> retorna *[Infered_decision](https://pkg.go.dev/github.com/Darklabel91/Summary_Classifier/Summary#InferredDecision)* 
-- ReturnSummaryClass(summary string, char int) -> retorna uma das sete categorias de classificação possíveis.
-- SummaryClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) -> retorna um CSV para uma pasta do projeto com o nome apontado em *resultFolder*. Para utilizar a função basta apontar o caminho do CSV (deve possuir uma única coluna com as ementas)
+- Classify(summary string) -> returns *[Infered_decision](https://pkg.go.dev/github.com/Darklabel91/Summary_Classifier/Summary#InferredDecision)* 
+- ReturnSummaryClass(summary string, char int) -> returns one of seven possible classifications.
+- SummaryClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) -> return a CSV file in a given folder provide as parameter *resultFolder*. The .csv pass in *rawFilePath* must contain a single collum with summary text's.
 
 ## Disclaimer
-Esse classificador foi testado, até o momento, apenas com ementas dos julgados do segundo grau do TJSP (Tribunal de Justiça de São Paulo) com uma assertividade de 96%, de qualquer modo, use com cautela.
+The precision was calculated only with TJSP data. The precision was 96%;
