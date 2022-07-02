@@ -70,7 +70,7 @@ Files created
 ## Functions
 - Classify(summary string) -> returns *[Infered_decision](https://pkg.go.dev/github.com/Darklabel91/Summary_Classifier/Summary#InferredDecision)* 
 - ReturnSummaryClass(summary string, char int) -> returns one of seven possible classifications.
-- SummaryClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) -> return a CSV file in a given folder provide as parameter *resultFolder*. The .csv pass in *rawFilePath* must contain a single collum with summary text's.
+- SummaryClassifierCSV(rawFilePath string, separator rune, nameResultFolder string) -> return a CSV file in folder provide as parameter in *resultFolder*. The .csv passed in *rawFilePath* must contain a single column with summary text's.
 
 ## Disclaimer
 The precision was calculated only with TJSP data. The precision was 96%;
